@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     
     private var scrollDirection: ScrollDirection = .Down
     
+    private var prevDifferenceToCell: CGFloat = 0
     private var shrinkingBlogPostView = UIView()
     
     var blogPostTableViewCellIdentifier: String {
@@ -67,7 +68,7 @@ class ViewController: UIViewController {
         
         tableView.backgroundColor = UIColor.clearColor()
         
-        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: tableViewCellHeight))
     }
     
     private func setupShrinkingBlogPostView() {
@@ -96,19 +97,24 @@ class ViewController: UIViewController {
         tableView.scrollToRowAtIndexPath(nextIndexPath, atScrollPosition: .Top, animated: true)
         tableView.cellForRowAtIndexPath(nextIndexPath)?.hidden = false
     }
-//
-//    private func scrollToNearestTableViewCell(scrollView: UIScrollView) {
-//        let cellHeight = view.frame.height / 4
-//        let differenceToCell = scrollView.contentOffset.y % cellHeight
-//        
-//        guard differenceToCell != 0 else { return }
-//        
-//        let floorCellRow = Int(scrollView.contentOffset.y / cellHeight)
-//        let nearestCellRow = differenceToCell < cellHeight / 2 ? floorCellRow : floorCellRow + 1
-//        let nearestIndexPath = NSIndexPath(forRow: nearestCellRow, inSection: 0)
-//        
-//        tableView.scrollToRowAtIndexPath(nearestIndexPath, atScrollPosition: .Top, animated: true)
-//    }
+
+    private func scrollToNearestTableViewCell(scrollView: UIScrollView) {
+        let cellHeight = view.frame.height / 4
+        let differenceToCell = scrollView.contentOffset.y % cellHeight
+        
+        guard differenceToCell != 0 else { return }
+        
+        let floorCellRow = Int(scrollView.contentOffset.y / cellHeight)
+        var nearestCellRow = differenceToCell < cellHeight / 2 ? floorCellRow : floorCellRow + 1
+        nearestCellRow = nearestCellRow < viewModel.posts.count ? nearestCellRow : viewModel.posts.count - 1
+        let nearestIndexPath = NSIndexPath(forRow: nearestCellRow, inSection: 0)
+        
+        tableView.scrollToRowAtIndexPath(nearestIndexPath, atScrollPosition: .Top, animated: true)
+    }
+    
+    private func handleScrollViewDidFinishScrolling(scrollView: UIScrollView) {
+        scrollToNearestTableViewCell(scrollView)
+    }
 }
 
 // MARK: UITableViewDataSource
@@ -143,47 +149,45 @@ extension ViewController: UITableViewDelegate {
 
         let translation = scrollView.panGestureRecognizer.translationInView(scrollView.superview)
         
-        if translation.y > 0 {
-            scrollDirection = .Up
-        } else {
-            scrollDirection = .Down
-        }
-        
+        scrollDirection = translation.y > 0 ? .Up : .Down
+
         switch scrollDirection {
-        case .Up:
-            let prevIndexPathRow = topCellIndexPathRow - 1 > -1 ? topCellIndexPathRow - 1 : 0
-            guard let prevCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: prevIndexPathRow, inSection: 0)) as? BlogPostTableViewCell else { return }
-            shrinkingBlogPostView = prevCell.postView
         case .Down:
             shrinkingBlogPostView = topVisibleCell.postView
+        default:
+            break;
         }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        
-        let cellHeight = view.frame.height / 4
+        let cellHeight = tableViewCellHeight
         let differenceToCell = scrollView.contentOffset.y % cellHeight
-        let scaleFactor = (cellHeight - differenceToCell) / cellHeight
+        let scaleFactor = (cellHeight - differenceToCell * 1 / 2) / cellHeight
+        
+        if prevDifferenceToCell < differenceToCell {
+            shrinkingBlogPostView.transform = CGAffineTransformIdentity
+            shrinkingBlogPostView.alpha = 1.0
+        }
+        
+        var cellIndexPathRow = differenceToCell != 0 ? Int((scrollView.contentOffset.y - differenceToCell) / cellHeight) : viewModel.posts.count - 1
+        cellIndexPathRow = cellIndexPathRow < viewModel.posts.count ? cellIndexPathRow : viewModel.posts.count - 1
+        let indexPath = NSIndexPath(forRow: cellIndexPathRow, inSection: 0)
+        
+        guard let cell = tableView.cellForRowAtIndexPath(indexPath) as? BlogPostTableViewCell else { return }
+        shrinkingBlogPostView = cell.postView
         
         shrinkingBlogPostView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
+        shrinkingBlogPostView.alpha = scaleFactor
+  
+        prevDifferenceToCell = differenceToCell
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard !decelerate else { return }
-        switch scrollDirection {
-        case .Up:
-            scrollToPrevTableViewCell()
-        case .Down:
-            scrollToNextTableViewCell()
-        }
+        handleScrollViewDidFinishScrolling(scrollView)
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        switch scrollDirection {
-        case .Up:
-            scrollToPrevTableViewCell()
-        case .Down:
-            scrollToNextTableViewCell()
-        }
+        handleScrollViewDidFinishScrolling(scrollView)
     }
 }
