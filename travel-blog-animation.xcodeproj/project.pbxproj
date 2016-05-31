@@ -12,6 +12,10 @@
 		0CD8F9FB1CFB595800D05ADA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CD8F9F91CFB595800D05ADA /* Main.storyboard */; };
 		0CD8F9FD1CFB595800D05ADA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CD8F9FC1CFB595800D05ADA /* Assets.xcassets */; };
 		0CD8FA001CFB595800D05ADA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CD8F9FE1CFB595800D05ADA /* LaunchScreen.storyboard */; };
+		0CD8FA091CFB5AB400D05ADA /* BlogPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD8FA071CFB5AB400D05ADA /* BlogPostTableViewCell.swift */; };
+		0CD8FA0A1CFB5AB400D05ADA /* BlogPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CD8FA081CFB5AB400D05ADA /* BlogPostTableViewCell.xib */; };
+		0CD8FA0C1CFB617E00D05ADA /* BlogPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD8FA0B1CFB617E00D05ADA /* BlogPostsViewModel.swift */; };
+		96C1E098A5173ECCE2FD2A0B /* Pods_travel_blog_animation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDBB1D9FEC6B14458094B0A6 /* Pods_travel_blog_animation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,12 @@
 		0CD8F9FC1CFB595800D05ADA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0CD8F9FF1CFB595800D05ADA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0CD8FA011CFB595800D05ADA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CD8FA071CFB5AB400D05ADA /* BlogPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogPostTableViewCell.swift; sourceTree = "<group>"; };
+		0CD8FA081CFB5AB400D05ADA /* BlogPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlogPostTableViewCell.xib; sourceTree = "<group>"; };
+		0CD8FA0B1CFB617E00D05ADA /* BlogPostsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogPostsViewModel.swift; sourceTree = "<group>"; };
+		31AD3D30EB173363D83918D0 /* Pods-travel-blog-animation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travel-blog-animation.release.xcconfig"; path = "Pods/Target Support Files/Pods-travel-blog-animation/Pods-travel-blog-animation.release.xcconfig"; sourceTree = "<group>"; };
+		6033134DCDFDF851B20F6565 /* Pods-travel-blog-animation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travel-blog-animation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-travel-blog-animation/Pods-travel-blog-animation.debug.xcconfig"; sourceTree = "<group>"; };
+		CDBB1D9FEC6B14458094B0A6 /* Pods_travel_blog_animation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_travel_blog_animation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96C1E098A5173ECCE2FD2A0B /* Pods_travel_blog_animation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +51,8 @@
 			children = (
 				0CD8F9F41CFB595800D05ADA /* travel-blog-animation */,
 				0CD8F9F31CFB595800D05ADA /* Products */,
+				1F5CC9869BEEC52833DA5985 /* Pods */,
+				E31D20B9DE7D97E5286EC92F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +69,32 @@
 			children = (
 				0CD8F9F51CFB595800D05ADA /* AppDelegate.swift */,
 				0CD8F9F71CFB595800D05ADA /* ViewController.swift */,
+				0CD8FA071CFB5AB400D05ADA /* BlogPostTableViewCell.swift */,
+				0CD8FA081CFB5AB400D05ADA /* BlogPostTableViewCell.xib */,
+				0CD8FA0B1CFB617E00D05ADA /* BlogPostsViewModel.swift */,
 				0CD8F9F91CFB595800D05ADA /* Main.storyboard */,
 				0CD8F9FC1CFB595800D05ADA /* Assets.xcassets */,
 				0CD8F9FE1CFB595800D05ADA /* LaunchScreen.storyboard */,
 				0CD8FA011CFB595800D05ADA /* Info.plist */,
 			);
 			path = "travel-blog-animation";
+			sourceTree = "<group>";
+		};
+		1F5CC9869BEEC52833DA5985 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6033134DCDFDF851B20F6565 /* Pods-travel-blog-animation.debug.xcconfig */,
+				31AD3D30EB173363D83918D0 /* Pods-travel-blog-animation.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E31D20B9DE7D97E5286EC92F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CDBB1D9FEC6B14458094B0A6 /* Pods_travel_blog_animation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +104,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0CD8FA041CFB595800D05ADA /* Build configuration list for PBXNativeTarget "travel-blog-animation" */;
 			buildPhases = (
+				0220D731DF7B264907649B40 /* 📦 Check Pods Manifest.lock */,
 				0CD8F9EE1CFB595800D05ADA /* Sources */,
 				0CD8F9EF1CFB595800D05ADA /* Frameworks */,
 				0CD8F9F01CFB595800D05ADA /* Resources */,
+				6276827B5A2AA7A0CEC50AF1 /* 📦 Embed Pods Frameworks */,
+				64B3E451D7CB93132CCB5C93 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -125,18 +161,69 @@
 				0CD8FA001CFB595800D05ADA /* LaunchScreen.storyboard in Resources */,
 				0CD8F9FD1CFB595800D05ADA /* Assets.xcassets in Resources */,
 				0CD8F9FB1CFB595800D05ADA /* Main.storyboard in Resources */,
+				0CD8FA0A1CFB5AB400D05ADA /* BlogPostTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0220D731DF7B264907649B40 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6276827B5A2AA7A0CEC50AF1 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-travel-blog-animation/Pods-travel-blog-animation-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64B3E451D7CB93132CCB5C93 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-travel-blog-animation/Pods-travel-blog-animation-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0CD8F9EE1CFB595800D05ADA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CD8FA0C1CFB617E00D05ADA /* BlogPostsViewModel.swift in Sources */,
 				0CD8F9F81CFB595800D05ADA /* ViewController.swift in Sources */,
 				0CD8F9F61CFB595800D05ADA /* AppDelegate.swift in Sources */,
+				0CD8FA091CFB5AB400D05ADA /* BlogPostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +336,7 @@
 		};
 		0CD8FA051CFB595800D05ADA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6033134DCDFDF851B20F6565 /* Pods-travel-blog-animation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "travel-blog-animation/Info.plist";
@@ -260,6 +348,7 @@
 		};
 		0CD8FA061CFB595800D05ADA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31AD3D30EB173363D83918D0 /* Pods-travel-blog-animation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "travel-blog-animation/Info.plist";
@@ -288,6 +377,7 @@
 				0CD8FA061CFB595800D05ADA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
