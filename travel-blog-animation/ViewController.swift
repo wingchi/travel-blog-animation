@@ -75,7 +75,7 @@ class ViewController: UIViewController {
         
         tableView.clipsToBounds = false
         
-        tableView.backgroundColor = UIColor.clearColor()
+        tableView.backgroundColor = view.backgroundColor
         
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: tableViewCellHeight))
     }

@@ -15,6 +15,9 @@ class BlogPostTableViewCell: UITableViewCell {
     private let cornerRadius: CGFloat = 5
     
     private let titleLabel = UILabel()
+    private let authorLabel = UILabel()
+    private let overlay = UIView()
+    let imageViewBackground = UIImageView()
     
     let postView = UIView()
     
@@ -31,7 +34,7 @@ class BlogPostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    private func setupPostView(withHeight height: CGFloat) {
+    private func setupPostView(blogPost: BlogPost, withHeight height: CGFloat) {
         addSubview(postView)
         
         constrain(postView, self) { postView, view in
@@ -42,22 +45,58 @@ class BlogPostTableViewCell: UITableViewCell {
         }
         
         postView.addSubview(titleLabel)
-        
+        titleLabel.textColor = UIColor.whiteColor()
         constrain(titleLabel, postView) { titleLabel, postView in
-            titleLabel.center == postView.center
+            titleLabel.centerX == postView.centerX
+            titleLabel.centerY == postView.centerY - 10
+        }
+        
+        postView.addSubview(authorLabel)
+        authorLabel.textColor = UIColor.whiteColor()
+        authorLabel.font = authorLabel.font.fontWithSize(12)
+        constrain(authorLabel, titleLabel) { authorLabel, titleLabel in
+            authorLabel.centerX == titleLabel.centerX
+            authorLabel.top == titleLabel.bottom + 10
         }
         
         postView.layer.cornerRadius = cornerRadius
+
+        overlay.backgroundColor = blogPost.color.colorWithAlphaComponent(0.5)
+        postView.addSubview(overlay)
+        postView.sendSubviewToBack(overlay)
         
-        postView.backgroundColor = UIColor.orangeColor()
+        constrain(overlay, postView) { overlay, postView in
+            overlay.left == postView.left
+            overlay.right == postView.right
+            overlay.top == postView.top
+            overlay.bottom == postView.bottom
+        }
         
-        postView.layer.borderWidth = 1.0
+        imageViewBackground.contentMode = UIViewContentMode.ScaleAspectFill
+        imageViewBackground.clipsToBounds = true
+        
+        if  let backgroundImageURL = blogPost.backgroundImageURL,
+            let backgroundImageData = NSData(contentsOfURL: backgroundImageURL),
+            let backgroundImage = UIImage(data: backgroundImageData) {
+            imageViewBackground.image = backgroundImage
+        }
+        
+        postView.addSubview(imageViewBackground)
+        postView.sendSubviewToBack(imageViewBackground)
+        
+        constrain(imageViewBackground, postView) { imageViewBackground, view in
+            imageViewBackground.left == view.left
+            imageViewBackground.right == view.right
+            imageViewBackground.bottom == view.bottom
+            imageViewBackground.top == view.top
+        }
     }
     
     func configureWithViewModel(viewModel: BlogPostsViewModel, atIndexPath indexPath: NSIndexPath, height: CGFloat) {
         
-        setupPostView(withHeight: height)
+        setupPostView(viewModel.posts[indexPath.row], withHeight: height)
         
-        titleLabel.text = viewModel.posts[indexPath.row]
+        titleLabel.text = viewModel.posts[indexPath.row].title
+        authorLabel.text = "by " + viewModel.posts[indexPath.row].author
     }
 }

@@ -15,6 +15,7 @@
 		0CD8FA091CFB5AB400D05ADA /* BlogPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD8FA071CFB5AB400D05ADA /* BlogPostTableViewCell.swift */; };
 		0CD8FA0A1CFB5AB400D05ADA /* BlogPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CD8FA081CFB5AB400D05ADA /* BlogPostTableViewCell.xib */; };
 		0CD8FA0C1CFB617E00D05ADA /* BlogPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD8FA0B1CFB617E00D05ADA /* BlogPostsViewModel.swift */; };
+		0CD8FA0E1CFE885400D05ADA /* BlogPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD8FA0D1CFE885400D05ADA /* BlogPost.swift */; };
 		96C1E098A5173ECCE2FD2A0B /* Pods_travel_blog_animation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDBB1D9FEC6B14458094B0A6 /* Pods_travel_blog_animation.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		0CD8FA071CFB5AB400D05ADA /* BlogPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogPostTableViewCell.swift; sourceTree = "<group>"; };
 		0CD8FA081CFB5AB400D05ADA /* BlogPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlogPostTableViewCell.xib; sourceTree = "<group>"; };
 		0CD8FA0B1CFB617E00D05ADA /* BlogPostsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogPostsViewModel.swift; sourceTree = "<group>"; };
+		0CD8FA0D1CFE885400D05ADA /* BlogPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogPost.swift; sourceTree = "<group>"; };
 		31AD3D30EB173363D83918D0 /* Pods-travel-blog-animation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travel-blog-animation.release.xcconfig"; path = "Pods/Target Support Files/Pods-travel-blog-animation/Pods-travel-blog-animation.release.xcconfig"; sourceTree = "<group>"; };
 		6033134DCDFDF851B20F6565 /* Pods-travel-blog-animation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travel-blog-animation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-travel-blog-animation/Pods-travel-blog-animation.debug.xcconfig"; sourceTree = "<group>"; };
 		CDBB1D9FEC6B14458094B0A6 /* Pods_travel_blog_animation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_travel_blog_animation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +74,7 @@
 				0CD8FA071CFB5AB400D05ADA /* BlogPostTableViewCell.swift */,
 				0CD8FA081CFB5AB400D05ADA /* BlogPostTableViewCell.xib */,
 				0CD8FA0B1CFB617E00D05ADA /* BlogPostsViewModel.swift */,
+				0CD8FA0D1CFE885400D05ADA /* BlogPost.swift */,
 				0CD8F9F91CFB595800D05ADA /* Main.storyboard */,
 				0CD8F9FC1CFB595800D05ADA /* Assets.xcassets */,
 				0CD8F9FE1CFB595800D05ADA /* LaunchScreen.storyboard */,
@@ -220,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CD8FA0E1CFE885400D05ADA /* BlogPost.swift in Sources */,
 				0CD8FA0C1CFB617E00D05ADA /* BlogPostsViewModel.swift in Sources */,
 				0CD8F9F81CFB595800D05ADA /* ViewController.swift in Sources */,
 				0CD8F9F61CFB595800D05ADA /* AppDelegate.swift in Sources */,
