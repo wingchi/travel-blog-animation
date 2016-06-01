@@ -23,8 +23,6 @@ class BlogPostTableViewCell: UITableViewCell {
         
         selectionStyle = .None
         backgroundColor = UIColor.clearColor()
-        
-        setupPostView()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -33,11 +31,11 @@ class BlogPostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    private func setupPostView() {
+    private func setupPostView(withHeight height: CGFloat) {
         addSubview(postView)
         
         constrain(postView, self) { postView, view in
-            postView.top == view.top + padding
+            postView.height == height - 2 * padding
             postView.bottom == view.bottom - padding
             postView.left == view.left + padding
             postView.right == view.right - padding
@@ -52,9 +50,14 @@ class BlogPostTableViewCell: UITableViewCell {
         postView.layer.cornerRadius = cornerRadius
         
         postView.backgroundColor = UIColor.orangeColor()
+        
+        postView.layer.borderWidth = 1.0
     }
     
-    func configureWithViewModel(viewModel: BlogPostsViewModel, atIndexPath indexPath: NSIndexPath) {
+    func configureWithViewModel(viewModel: BlogPostsViewModel, atIndexPath indexPath: NSIndexPath, height: CGFloat) {
+        
+        setupPostView(withHeight: height)
+        
         titleLabel.text = viewModel.posts[indexPath.row]
     }
 }

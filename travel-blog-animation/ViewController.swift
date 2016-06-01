@@ -26,6 +26,11 @@ class ViewController: UIViewController {
     private var prevDifferenceToCell: CGFloat = 0
     private var shrinkingBlogPostView = UIView()
     
+    private var tableViewExpanding = false
+    private var tableViewExpanded = false
+    
+    private let group = ConstraintGroup()
+    
     var blogPostTableViewCellIdentifier: String {
         return String(BlogPostTableViewCell)
     }
@@ -56,15 +61,19 @@ class ViewController: UIViewController {
         setupShrinkingBlogPostView()
     }
     
+    // MARK: Setup
+    
     private func setupTableView() {
         view.addSubview(tableView)
         
-        constrain(view, tableView) { view, tableView in
+        constrain(view, tableView, replace: group) { view, tableView in
             tableView.left == view.left
             tableView.right == view.right
-            tableView.top == view.top + 64
             tableView.bottom == view.bottom
+            tableView.top == view.top + tableViewCellHeight * 2.75
         }
+        
+        tableView.clipsToBounds = false
         
         tableView.backgroundColor = UIColor.clearColor()
         
@@ -81,6 +90,51 @@ class ViewController: UIViewController {
             shrinkingBlogPostView.height == self.view.frame.height / 4
         }
     }
+    
+    // MARK: Animation
+    
+    private func expandTableView() {
+
+        constrain(view, tableView, replace: group) { view, tableView in
+            tableView.left == view.left
+            tableView.right == view.right
+            tableView.bottom == view.bottom
+            tableView.top == view.top + 64
+        }
+        
+        tableViewExpanding = true
+        
+        UIView.animateWithDuration(
+            0.5,
+            animations: {
+                self.view.layoutIfNeeded()
+                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            },
+            completion: { _ in
+                self.tableViewExpanded = true
+                self.tableViewExpanding = false
+            }
+        )
+    }
+    
+    private func collapseTableView() {
+        self.tableViewExpanded = false
+        
+        constrain(view, tableView, replace: group) { view, tableView in
+            tableView.left == view.left
+            tableView.right == view.right
+            tableView.bottom == view.bottom
+            tableView.top == view.top + tableViewCellHeight * 2.75
+        }
+        
+        
+        UIView.animateWithDuration(0.5) {
+            self.view.layoutIfNeeded()
+            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+        }
+    }
+    
+    // MARK: Paging
     
     private func scrollToPrevTableViewCell() {
         let targetRow = topTableViewCellIndexPath.row - 1 > -1 ? topTableViewCellIndexPath.row - 1 : 0
@@ -113,6 +167,11 @@ class ViewController: UIViewController {
     }
     
     private func handleScrollViewDidFinishScrolling(scrollView: UIScrollView) {
+        guard tableViewExpanded else {
+            scrollView.contentOffset.y = 0
+            return
+        }
+        
         scrollToNearestTableViewCell(scrollView)
     }
 }
@@ -127,12 +186,12 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(blogPostTableViewCellIdentifier) as! BlogPostTableViewCell
-        cell.configureWithViewModel(viewModel, atIndexPath: indexPath)
+        cell.configureWithViewModel(viewModel, atIndexPath: indexPath, height: tableViewCellHeight)
         return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return view.frame.height / 4
+        return tableViewExpanded || tableViewExpanding ? tableViewCellHeight : view.frame.height / 8
     }
 }
 
@@ -153,13 +212,24 @@ extension ViewController: UITableViewDelegate {
 
         switch scrollDirection {
         case .Down:
-            shrinkingBlogPostView = topVisibleCell.postView
-        default:
-            break;
+            if !tableViewExpanded {
+                expandTableView()
+            } else {
+                shrinkingBlogPostView = topVisibleCell.postView
+            }
+        case .Up:
+            if tableViewExpanded && scrollView.contentOffset.y == 0 {
+                collapseTableView()
+            }
         }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        guard tableViewExpanded else {
+            scrollView.contentOffset.y = 0
+            return
+        }
+        
         let cellHeight = tableViewCellHeight
         let differenceToCell = scrollView.contentOffset.y % cellHeight
         let scaleFactor = (cellHeight - differenceToCell * 1 / 2) / cellHeight
@@ -174,6 +244,7 @@ extension ViewController: UITableViewDelegate {
         let indexPath = NSIndexPath(forRow: cellIndexPathRow, inSection: 0)
         
         guard let cell = tableView.cellForRowAtIndexPath(indexPath) as? BlogPostTableViewCell else { return }
+        
         shrinkingBlogPostView = cell.postView
         
         shrinkingBlogPostView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
