@@ -1,5 +1,9 @@
-target 'travel-blog-animation'
+source 'https://github.com/CocoaPods/Specs'
 
+platform :ios, '8.0'
 use_frameworks!
 
-pod 'Cartography'
+target 'travel-blog-animation' do
+  pod 'Cartography'
+  pod 'Intrepid'
+end

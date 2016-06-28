@@ -26,6 +26,7 @@ class BlogPostTableViewCell: UITableViewCell {
         
         selectionStyle = .None
         backgroundColor = UIColor.clearColor()
+        layer.cornerRadius = cornerRadius
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
